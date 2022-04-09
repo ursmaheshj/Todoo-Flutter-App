@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:todoo/models/task_model.dart';
 import 'package:todoo/screens/add_task_screen.dart';
 import 'package:todoo/widgets/tasks_view.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [Task(name: 'buy Milk'), Task(name: 'Buy Bread and eggs')];
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +22,17 @@ class TasksScreen extends StatelessWidget {
               context: context,
               builder: (context) => SingleChildScrollView(
                     child: Container(
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom),
-                        child: const AddTaskScreen()),
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: AddTaskScreen(
+                        addTask: (newTaskTitle) {
+                          setState(() {
+                            tasks.add(Task(name: newTaskTitle));
+                          });
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
                   ),
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -38,8 +54,8 @@ class TasksScreen extends StatelessWidget {
                   top: 30.0, left: 20.0, right: 20.0, bottom: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  CircleAvatar(
+                children: [
+                  const CircleAvatar(
                     child: Icon(
                       Icons.menu,
                       size: 35.0,
@@ -48,8 +64,8 @@ class TasksScreen extends StatelessWidget {
                     radius: 30.0,
                     backgroundColor: Colors.white,
                   ),
-                  SizedBox(height: 10.0),
-                  Text(
+                  const SizedBox(height: 10.0),
+                  const Text(
                     "Todoo",
                     style: TextStyle(
                         color: Colors.white,
@@ -57,8 +73,8 @@ class TasksScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    '15 Tasks',
-                    style: TextStyle(color: Colors.white),
+                    '${tasks.length} Tasks',
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ],
               ),
@@ -66,7 +82,9 @@ class TasksScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(20.0),
-                child: const TasksView(),
+                child: TasksView(
+                  tasks: tasks,
+                ),
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
