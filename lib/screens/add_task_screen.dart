@@ -25,9 +25,6 @@ class AddTaskScreen extends StatelessWidget {
           ),
           TextButton(
             style: ButtonStyle(
-              // padding: MaterialStateProperty.all<EdgeInsets>(
-              //   const EdgeInsets.symmetric(20),
-              // ),
               backgroundColor:
                   MaterialStateProperty.all<Color>(Colors.lightBlue),
             ),
