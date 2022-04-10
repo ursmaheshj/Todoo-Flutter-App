@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoo/models/taskData_model.dart';
 import 'package:todoo/models/task_model.dart';
 import 'package:todoo/screens/add_task_screen.dart';
 import 'package:todoo/widgets/tasks_view.dart';
 
-class TasksScreen extends StatefulWidget {
+class TasksScreen extends StatelessWidget {
   const TasksScreen({Key? key}) : super(key: key);
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [Task(name: 'buy Milk'), Task(name: 'Buy Bread and eggs')];
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +21,9 @@ class _TasksScreenState extends State<TasksScreen> {
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: AddTaskScreen(
                         addTask: (newTaskTitle) {
-                          setState(() {
-                            tasks.add(Task(name: newTaskTitle));
-                          });
+                          // setState(() {
+                          //   tasks.add(Task(name: newTaskTitle));
+                          // },);
                           Navigator.pop(context);
                         },
                       ),
@@ -73,7 +68,7 @@ class _TasksScreenState extends State<TasksScreen> {
                         fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    '${tasks.length} Tasks',
+                    '${Provider.of<TaskData>(context).taskCount} Tasks',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ],
@@ -82,8 +77,8 @@ class _TasksScreenState extends State<TasksScreen> {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(20.0),
-                child: TasksView(
-                  tasks: tasks,
+                child: const TasksView(
+                  
                 ),
                 decoration: const BoxDecoration(
                     color: Colors.white,
