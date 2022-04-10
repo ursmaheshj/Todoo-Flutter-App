@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoo/models/taskData_model.dart';
-import 'package:todoo/models/task_model.dart';
 import 'package:todoo/screens/add_task_screen.dart';
 import 'package:todoo/widgets/tasks_view.dart';
 
@@ -19,13 +18,8 @@ class TasksScreen extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
-                      child: AddTaskScreen(
-                        addTask: (newTaskTitle) {
-                          // setState(() {
-                          //   tasks.add(Task(name: newTaskTitle));
-                          // },);
-                          Navigator.pop(context);
-                        },
+                      child: const AddTaskScreen(
+                        
                       ),
                     ),
                   ),
@@ -68,7 +62,7 @@ class TasksScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    '${Provider.of<TaskData>(context).taskCount} Tasks',
+                    '${Provider.of<TaskData>(context,listen:true).taskCount} Tasks',
                     style: const TextStyle(color: Colors.white),
                   ),
                 ],
@@ -77,9 +71,7 @@ class TasksScreen extends StatelessWidget {
             Expanded(
               child: Container(
                 padding: const EdgeInsets.all(20.0),
-                child: const TasksView(
-                  
-                ),
+                child:const TasksView(),
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(

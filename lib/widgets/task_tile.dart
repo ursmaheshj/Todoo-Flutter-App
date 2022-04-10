@@ -6,15 +6,18 @@ class TaskTile extends StatelessWidget {
     required this.tileTitle,
     required this.isChecked, 
     required this.toggleCheckBoxState,
+    required this.longPressTask
   }) : super(key: key);
 
   final String tileTitle;
   final bool isChecked;
   final Function(bool?)? toggleCheckBoxState;
+  final Function() longPressTask;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onLongPress: longPressTask,
       title: Text(
         tileTitle,
         style: TextStyle(
@@ -50,10 +53,3 @@ class TaskCheckBox extends StatelessWidget {
     );
   }
 }
-
-
-// TaskCheckBox(
-//         checkBoxState: isChecked,
-//         toggleCheckBoxState: 
-//         },
-//       ),

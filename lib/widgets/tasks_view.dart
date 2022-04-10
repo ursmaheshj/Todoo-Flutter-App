@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoo/models/taskData_model.dart';
+import 'package:todoo/widgets/alert_dialog.dart';
 import 'package:todoo/widgets/task_tile.dart';
 
 class TasksView extends StatelessWidget {
@@ -16,11 +17,10 @@ class TasksView extends StatelessWidget {
               tileTitle: taskData.tasks[index].name,
               isChecked: taskData.tasks[index].isDone,
               toggleCheckBoxState: (bool? checkBoxState) {
-                // setState(
-                //   () {
-                //     widget.tasks[index].toggleDone();
-                //   },
-                // );
+                taskData.updateTask(taskData.tasks[index]);
+              },
+              longPressTask: () {
+                showAlertDialogBox(context,taskData.tasks[index]);
               },
             );
           },
@@ -30,3 +30,4 @@ class TasksView extends StatelessWidget {
     );
   }
 }
+

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoo/models/taskData_model.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({Key? key, required this.addTask}) : super(key: key);
-  final Function(String) addTask;
+  const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +35,8 @@ class AddTaskScreen extends StatelessWidget {
                   MaterialStateProperty.all<Color>(Colors.lightBlue),
             ),
             onPressed: () {
-              
-              addTask(taskTitle!);
+              Provider.of<TaskData>(context, listen: false).taskList=taskTitle;
+              Navigator.pop(context);
             },
             child: const Text(
               'Add',
